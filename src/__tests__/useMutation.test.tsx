@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { cleanup, render, fireEvent, getByTestId } from 'react-testing-library';
 import { useMutation, MutationResult } from '../useMutation';
 import { createApolloClient } from './createApolloClient';
-import { ApolloTestContextProvider } from './ApolloTestContextProvider';
+import { ApolloHooksProvider } from '../ApolloHooksProvider';
 
 describe('useMutation', () => {
   afterEach(cleanup);
@@ -17,9 +17,9 @@ describe('useMutation', () => {
     }
     const { client, operationsLink } = await createApolloClient();
     const { container } = render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
     fireEvent.click(getByTestId(container, 'button'));
     await operationsLink.waitForPendingOperations();
@@ -50,9 +50,9 @@ describe('useMutation', () => {
     });
 
     const { container } = render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
     fireEvent.click(getByTestId(container, 'button'));
     await operationsLink.waitForPendingOperations();
@@ -76,9 +76,9 @@ describe('useMutation', () => {
     }
     const { client, operationsLink } = await createApolloClient();
     const { container } = render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
     fireEvent.click(getByTestId(container, 'button'));
     await operationsLink.waitForPendingOperations();
@@ -97,9 +97,9 @@ describe('useMutation', () => {
     }
     const { client, operationsLink } = await createApolloClient();
     const { container } = render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
     fireEvent.click(getByTestId(container, 'button'));
     await operationsLink.waitForPendingOperations();

@@ -3,7 +3,7 @@ import { QueryResult, useQuery } from '../useQuery';
 import gql from 'graphql-tag';
 import { cleanup, fireEvent, render, getByTestId } from 'react-testing-library';
 import { createApolloClient } from './createApolloClient';
-import { ApolloTestContextProvider } from './ApolloTestContextProvider';
+import { ApolloHooksProvider } from '../ApolloHooksProvider';
 
 describe('useQuery', () => {
   afterEach(cleanup);
@@ -20,9 +20,9 @@ describe('useQuery', () => {
 
     const { client, operationsLink } = await createApolloClient();
     render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
     await operationsLink.waitForPendingOperations();
 
@@ -50,9 +50,9 @@ describe('useQuery', () => {
     });
 
     render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
     await operationsLink.waitForPendingOperations();
 
@@ -81,9 +81,9 @@ describe('useQuery', () => {
 
     const { client, operationsLink } = await createApolloClient();
     const { container } = render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
     await operationsLink.waitForPendingOperations();
     cb.mockClear();
@@ -126,9 +126,9 @@ describe('useQuery', () => {
 
     const { client, operationsLink } = await createApolloClient();
     const { container } = render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
     await operationsLink.waitForPendingOperations();
     cb.mockClear();
@@ -159,9 +159,9 @@ describe('useQuery', () => {
 
     const { client, operationsLink } = await createApolloClient();
     render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
     await operationsLink.waitForPendingOperations();
 
@@ -188,9 +188,9 @@ describe('useQuery', () => {
 
     const { client, operationsLink } = await createApolloClient();
     const { container } = render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
     await operationsLink.waitForPendingOperations();
     cb.mockClear();

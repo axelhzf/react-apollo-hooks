@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { ApolloAppContextProvider, useApollo } from '../useApollo';
+import { useApollo } from '../useApollo';
 import { render } from 'react-testing-library';
 import { createApolloClient } from './createApolloClient';
 import { cleanup } from 'react-testing-library';
+import { ApolloHooksProvider } from '../ApolloHooksProvider';
 
 describe('apolloHook', () => {
   afterEach(cleanup);
@@ -19,9 +20,9 @@ describe('apolloHook', () => {
     const { client } = await createApolloClient();
 
     render(
-      <ApolloAppContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component />
-      </ApolloAppContextProvider>
+      </ApolloHooksProvider>
     );
 
     expect(cb.mock.calls).toEqual([[client]]);

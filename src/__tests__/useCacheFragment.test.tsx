@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { cleanup, render, getByTestId, fireEvent } from 'react-testing-library';
 import { useCacheFragment } from '../useCacheFragment';
 import { createApolloClient } from './createApolloClient';
-import { ApolloTestContextProvider } from './ApolloTestContextProvider';
+import { ApolloHooksProvider } from '../ApolloHooksProvider';
 
 describe('useMutation', () => {
   afterEach(cleanup);
@@ -44,9 +44,9 @@ describe('useMutation', () => {
     }
 
     const { container } = render(
-      <ApolloTestContextProvider client={client}>
+      <ApolloHooksProvider client={client}>
         <Component id={'1'} />
-      </ApolloTestContextProvider>
+      </ApolloHooksProvider>
     );
 
     expect(getByTestId(container, 'name').textContent).toEqual('Bulbasur');

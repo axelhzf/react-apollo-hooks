@@ -23,10 +23,11 @@ export async function createApolloClient() {
   return { client, operationsLink, mockLink };
 }
 
-let schema: GraphQLSchema | undefined = undefined;
+let cacheSchema: GraphQLSchema | undefined;
 async function getSchema() {
-  if (schema) return schema;
+  if (cacheSchema) return cacheSchema;
   const path = `${__dirname}/schema/pokemon-schema.graphql`;
-  const schemaSource = await readFile(path, 'utf-8');
-  return buildSchema(schemaSource);
+  const source = await readFile(path, 'utf-8');
+  cacheSchema = buildSchema(source);
+  return cacheSchema;
 }
