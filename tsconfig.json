@@ -5,11 +5,12 @@
     "jsx": "react",
     "declaration": true,
     "sourceMap": true,
-    "outDir": "./",
-    "rootDir": "./",
+    "outDir": "build",
     "strict": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "resolveJsonModule": true
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/__tests__/**"]
 }

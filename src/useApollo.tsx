@@ -1,7 +1,9 @@
 import React from 'react';
 import ApolloClient from 'apollo-client';
 
-export const ApolloContext = React.createContext<ApolloClient<any>>(undefined as any);
+export const ApolloContext = React.createContext<ApolloClient<any>>(
+  undefined as any
+);
 
 export function ApolloAppContextProvider(props: {
   client: ApolloClient<any>;

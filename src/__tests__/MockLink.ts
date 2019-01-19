@@ -1,7 +1,15 @@
-import { ApolloLink, NextLink, FetchResult, Observable, Operation } from 'apollo-link';
+import {
+  ApolloLink,
+  NextLink,
+  FetchResult,
+  Observable,
+  Operation
+} from 'apollo-link';
 
 type MockLinkResult = { success: any } | { error: Error } | undefined;
-type MockLinkCallback = (props: { operation: Operation, index: number, data: any }) => MockLinkResult;
+type MockLinkCallback = (
+  props: { operation: Operation; index: number; data: any }
+) => MockLinkResult;
 
 export class MockLink extends ApolloLink {
   private count = 0;
@@ -19,7 +27,10 @@ export class MockLink extends ApolloLink {
     this.cb = undefined;
   }
 
-  request(operation: Operation, forward: NextLink): Observable<FetchResult> | null {
+  request(
+    operation: Operation,
+    forward: NextLink
+  ): Observable<FetchResult> | null {
     const index = this.count;
     this.count += 1;
     return new Observable<FetchResult>(observer => {

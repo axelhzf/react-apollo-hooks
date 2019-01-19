@@ -2,7 +2,8 @@
   "name": "react-apollo-hooks",
   "version": "1.0.0",
   "description": "Hooks for Apollo",
-  "main": "index.js",
+  "main": "build/index.js",
+  "typings": "build/index.d.ts",
   "repository": "https://github.com/axelhzf/react-apollo-hooks",
   "author": "Axel Hernandez Ferrera",
   "license": "MIT",
@@ -25,5 +26,11 @@
     "react-testing-library": "^5.4.4",
     "ts-jest": "^23.10.5",
     "typescript": "^3.2.4"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "rm -rf build && tsc --build tsconfig.build.json",
+    "prettier": "prettier --write \"./src/**/*.{json,graphql,ts,tsx}\""
   }
 }

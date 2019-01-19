@@ -55,7 +55,7 @@ describe('useMutation', () => {
   });
 });
 
-function useForceUpdate(){
+function useForceUpdate() {
   const [_, set] = React.useState({});
   return () => set({});
 }

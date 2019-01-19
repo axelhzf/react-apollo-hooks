@@ -16,7 +16,10 @@ export type UseQueryArgs<TVariables = {}> = {
 
 type State<D> = QueryResult<D>;
 
-type Action<D> = { type: 'fetch' } | { type: 'success'; data: D } | { type: 'error'; error: Error };
+type Action<D> =
+  | { type: 'fetch' }
+  | { type: 'success'; data: D }
+  | { type: 'error'; error: Error };
 
 function reducer<D>(state: State<D>, action: Action<D>): State<D> {
   switch (action.type) {

@@ -2,7 +2,10 @@ import * as React from 'react';
 import { DocumentNode } from 'graphql';
 import { useApollo } from './useApollo';
 
-export function useCacheFragment<D>(args: { fragment: DocumentNode; type: string }) {
+export function useCacheFragment<D>(args: {
+  fragment: DocumentNode;
+  type: string;
+}) {
   const apollo = useApollo();
   const cache = apollo.store.getCache();
 

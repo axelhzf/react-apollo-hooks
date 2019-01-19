@@ -8,7 +8,10 @@ type ErrorState = { loading: false; data: undefined; error: Error };
 
 export type MutationResult<D> = InitialState | SuccessState<D> | ErrorState;
 
-type UseMutationReturnType<D, V> = [(args: MutateArgs<V>) => Promise<D>, MutationResult<D>];
+type UseMutationReturnType<D, V> = [
+  (args: MutateArgs<V>) => Promise<D>,
+  MutationResult<D>
+];
 
 type MutateArgs<V> = {
   variables?: V;
@@ -17,7 +20,10 @@ type MutateArgs<V> = {
 
 type State<D> = MutationResult<D>;
 
-type Action<D> = { type: 'fetch' } | { type: 'success'; data: D } | { type: 'error'; error: Error };
+type Action<D> =
+  | { type: 'fetch' }
+  | { type: 'success'; data: D }
+  | { type: 'error'; error: Error };
 
 function reducer<D>(state: State<D>, action: Action<D>): State<D> {
   switch (action.type) {

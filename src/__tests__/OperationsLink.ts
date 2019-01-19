@@ -1,4 +1,10 @@
-import { ApolloLink, Operation, Observable, FetchResult, NextLink } from 'apollo-link';
+import {
+  ApolloLink,
+  Operation,
+  Observable,
+  FetchResult,
+  NextLink
+} from 'apollo-link';
 import { waitFor } from './wait';
 
 export class OperationsLink extends ApolloLink {
@@ -6,7 +12,10 @@ export class OperationsLink extends ApolloLink {
   private completedOperations: Operation[] = [];
   private errorOperations: Operation[] = [];
 
-  request(operation: Operation, forward: NextLink): Observable<FetchResult> | null {
+  request(
+    operation: Operation,
+    forward: NextLink
+  ): Observable<FetchResult> | null {
     const observer = forward(operation);
     observer.subscribe({
       next: () => {
