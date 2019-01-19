@@ -1,0 +1,5 @@
+{
+  "schema": {
+    "file": "src/__tests__/schema/pokemon-schema.graphql"
+  }
+}

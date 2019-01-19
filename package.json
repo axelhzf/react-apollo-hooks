@@ -1,0 +1,29 @@
+{
+  "name": "react-apollo-hooks",
+  "version": "1.0.0",
+  "description": "Hooks for Apollo",
+  "main": "index.js",
+  "repository": "https://github.com/axelhzf/react-apollo-hooks",
+  "author": "Axel Hernandez Ferrera",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/graphql": "^14.0.5",
+    "@types/jest": "^23.3.13",
+    "@types/node": "^10.12.18",
+    "@types/react": "^16.7.20",
+    "apollo-cache-inmemory": "^1.4.2",
+    "apollo-client": "^2.4.12",
+    "apollo-link-schema": "^1.1.4",
+    "graphql": "^14.1.1",
+    "graphql-tag": "^2.10.1",
+    "graphql-tools": "^4.0.3",
+    "jest": "^23.6.0",
+    "prettier": "^1.15.3",
+    "react": "^16.8.0-alpha.1",
+    "react-dom": "^16.8.0-alpha.1",
+    "react-testing-library": "^5.4.4",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.4"
+  }
+}
