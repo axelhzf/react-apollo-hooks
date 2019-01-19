@@ -45,14 +45,14 @@ export function useQuery<D = any, V = any>(args: UseQueryArgs<V>): State<D> {
   const observable = React.useMemo(
     () => {
       if (args.skip) return;
-      const observable = client.watchQuery({
+      const obs = client.watchQuery({
         query,
         variables,
         fetchPolicy: 'network-only',
         pollInterval
       });
       dispatch({ type: 'fetch' });
-      return observable;
+      return obs;
     },
     [args.skip, args.query, args.variables]
   );
