@@ -1,5 +1,5 @@
 {
-  "name": "react-apollo-hooks",
+  "name": "@axelhzf/react-apollo-hooks",
   "version": "1.0.0",
   "description": "Hooks for Apollo",
   "main": "build/index.js",
