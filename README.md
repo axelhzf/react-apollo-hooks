@@ -20,8 +20,8 @@ import { useQuery } from '@axelhzf/react-apollo-hooks';
 
 function Component() {
   const { loading, error, data } = useQuery<PokemonsQuery, PokemonsVariables>({ query });
-  if (loading || !data) return <div>Loading...</div>;
   if (error) return <div>Error :(</div>;
+  if (loading || !data) return <div>Loading...</div>;  
   return (
     <div>
       {data.pokemons.map(pokemon => (

@@ -13,8 +13,8 @@ export function Pokemons() {
   const { loading, data, error } = useQuery<PokemonsQuery, PokemonsVariables>({
     query
   });
-  if (loading || !data) return <Loading />;
   if (error) return <ErrorPage />;
+  if (loading || !data) return <Loading />;
   return (
     <Box mx="auto" width={900}>
       <Flex flexWrap="wrap">

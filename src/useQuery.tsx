@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useApollo } from './useApollo';
+import { ErrorPolicy, FetchPolicy } from 'apollo-client';
 
 type InitialState = { loading: boolean; data: undefined; error: undefined };
 type SuccessState<D> = { loading: false; data: D; error: undefined };
@@ -12,6 +13,11 @@ export type UseQueryArgs<TVariables = {}> = {
   variables?: TVariables;
   skip?: boolean;
   pollInterval?: number;
+  metadata?: any;
+  context?: any;
+  fetchPolicy?: FetchPolicy;
+  errorPolicy?: ErrorPolicy;
+  notifyOnNetworkStatusChange?: boolean;
 };
 
 type State<D> = QueryResult<D>;
@@ -48,8 +54,12 @@ export function useQuery<D = any, V = any>(args: UseQueryArgs<V>): State<D> {
       const obs = client.watchQuery({
         query,
         variables,
-        fetchPolicy: 'network-only',
-        pollInterval
+        fetchPolicy: args.fetchPolicy,
+        pollInterval,
+        context: args.context,
+        metadata: args.metadata,
+        errorPolicy: args.errorPolicy,
+        notifyOnNetworkStatusChange: args.notifyOnNetworkStatusChange
       });
       dispatch({ type: 'fetch' });
       return obs;

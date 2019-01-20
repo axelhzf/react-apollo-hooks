@@ -19,8 +19,8 @@ export function Pokemon(props: RouteComponentProps<{ name: string }>) {
     PokemonByNameQuery,
     PokemonByNameVariables
   >({ query, variables });
-  if (loading || !data) return <Loading />;
   if (error) return <ErrorPage />;
+  if (loading || !data) return <Loading />;
   const pokemon = data.pokemonByName;
   if (!pokemon) return <ErrorPage message="Pokemon not found" />;
   return (
