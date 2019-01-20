@@ -1,6 +1,6 @@
 {
   "name": "@axelhzf/react-apollo-hooks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Hooks for Apollo",
   "main": "build/index.js",
   "typings": "build/index.d.ts",
@@ -8,6 +8,20 @@
   "author": "Axel Hernandez Ferrera",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "rm -rf build && tsc --build tsconfig.build.json",
+    "prettier": "prettier --write \"./src/**/*.{json,graphql,ts,tsx}\"",
+    "lint": "tslint --project . -t stylish",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "apollo-client": "^2.4.12",
+    "graphql": "^14.1.1",
+    "react": "^16.8.0-alpha.1"
+  },
   "devDependencies": {
     "@types/graphql": "^14.0.5",
     "@types/jest": "^23.3.13",
@@ -32,23 +46,19 @@
     "tslint-react": "^3.6.0",
     "typescript": "^3.2.4"
   },
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "build": "rm -rf build && tsc --build tsconfig.build.json",
-    "prettier": "prettier --write \"./src/**/*.{json,graphql,ts,tsx}\"",
-    "lint": "tslint --project . -t stylish"
-  },
-  "dependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "src/**/*.{ts,tsx}": [
       "prettier --single-quote --write",
       "tslint --project .",
+      "git add"
+    ],
+    "examples/**/*.{ts,tsx}": [
+      "prettier --single-quote --write",
       "git add"
     ]
   }

@@ -1,5 +1,9 @@
 {
   "schema": {
-    "file": "src/__tests__/schema/pokemon-schema.graphql"
+    "request": {
+      "url": "http://localhost:4000",
+      "meethod": "POST",
+      "postIntrospectionQuery" : true
+    }
   }
 }
