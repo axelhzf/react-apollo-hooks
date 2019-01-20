@@ -49,8 +49,8 @@ const query = gql`
 Clone the repository
 
 ```
-$ git clone git@github.com:axelhzf/graphql-pokemon-server.git
-$ cd graphql-pokemon-server
+$ git clone git@github.com:axelhzf/react-apollo-hooks.git
+$ cd react-apollo-hooks
 ```
 
 The examples use a graphql api that you need to run in local
