@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useApollo } from './useApollo';
 import { ErrorPolicy, FetchPolicy } from 'apollo-client';
+// @ts-ignore
+import equals from 'is-equal-shallow';
 
 type InitialState = { loading: boolean; data: undefined; error: undefined };
 type SuccessState<D> = { loading: false; data: D; error: undefined };
@@ -38,38 +40,49 @@ function reducer<D>(state: State<D>, action: Action<D>): State<D> {
   }
 }
 
-export function useQuery<D = any, V = any>(args: UseQueryArgs<V>): State<D> {
-  const { variables, query, pollInterval } = args;
-  const client = useApollo();
+const noOp = () => {}; // tslint:disable-line:no-empty
 
+export function useQuery<D = any, V = any>(args: UseQueryArgs<V>): State<D> {
+  const client = useApollo();
   const [state, dispatch] = React.useReducer<State<D>, Action<D>>(reducer, {
     loading: false,
     data: undefined,
     error: undefined
   });
+  const argsRef = React.useRef<UseQueryArgs<V>>(
+    {} as any
+  ) as React.MutableRefObject<UseQueryArgs<V>>;
+  const unsubscribeRef = React.useRef(noOp);
 
-  const observable = React.useMemo(
-    () => {
-      if (args.skip) return;
-      const obs = client.watchQuery({
-        query,
-        variables,
+  const isEqual =
+    argsRef.current.query === args.query &&
+    equals(argsRef.current.variables, args.variables) &&
+    argsRef.current.fetchPolicy === args.fetchPolicy &&
+    argsRef.current.pollInterval === args.pollInterval &&
+    argsRef.current.context === args.context &&
+    argsRef.current.metadata === args.metadata &&
+    argsRef.current.errorPolicy === args.errorPolicy &&
+    argsRef.current.errorPolicy === args.errorPolicy &&
+    argsRef.current.notifyOnNetworkStatusChange ===
+      args.notifyOnNetworkStatusChange &&
+    argsRef.current.skip === args.skip;
+
+  if (!isEqual) {
+    argsRef.current = args;
+    unsubscribeRef.current();
+
+    if (!args.skip) {
+      const observable = client.watchQuery({
+        query: args.query,
+        variables: args.variables,
         fetchPolicy: args.fetchPolicy,
-        pollInterval,
+        pollInterval: args.pollInterval,
         context: args.context,
         metadata: args.metadata,
         errorPolicy: args.errorPolicy,
         notifyOnNetworkStatusChange: args.notifyOnNetworkStatusChange
       });
       dispatch({ type: 'fetch' });
-      return obs;
-    },
-    [args.skip, args.query, args.variables]
-  );
-
-  React.useEffect(
-    () => {
-      if (!observable) return;
       const subscription = observable.subscribe(
         ({ data }) => {
           dispatch({ type: 'success', data: data as D });
@@ -78,10 +91,15 @@ export function useQuery<D = any, V = any>(args: UseQueryArgs<V>): State<D> {
           dispatch({ type: 'error', error });
         }
       );
-      return () => subscription.unsubscribe();
-    },
-    [observable]
-  );
+      unsubscribeRef.current = () => subscription.unsubscribe();
+    } else {
+      unsubscribeRef.current = noOp;
+    }
+  }
+
+  React.useEffect(() => {
+    return () => unsubscribeRef.current();
+  }, []);
 
   return state;
 }

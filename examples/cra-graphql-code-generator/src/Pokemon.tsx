@@ -13,12 +13,10 @@ import { Loading } from './Loading';
 import { ErrorPage } from './ErrorPage';
 
 export function Pokemon(props: RouteComponentProps<{ name: string }>) {
-  const name = props.match.params.name;
-  const variables = React.useMemo(() => ({ name }), [name]);
   const { loading, error, data } = useQuery<
     PokemonByNameQuery,
     PokemonByNameVariables
-  >({ query, variables });
+  >({ query, variables: { name: props.match.params.name } });
   if (error) return <ErrorPage />;
   if (loading || !data) return <Loading />;
   const pokemon = data.pokemonByName;

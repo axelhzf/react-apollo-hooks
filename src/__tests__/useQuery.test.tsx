@@ -12,8 +12,7 @@ describe('useQuery', () => {
     const cb = jest.fn();
 
     function Component() {
-      const [variables] = React.useState({ name: 'pikachu' });
-      const queryResult = useQuery({ query, variables });
+      const queryResult = useQuery({ query, variables: { name: 'pikachu' } });
       cb(queryResult);
       return null;
     }
@@ -175,9 +174,12 @@ describe('useQuery', () => {
     const cb = jest.fn();
 
     function Component() {
-      const [variables] = React.useState({ name: 'bulbasur' });
       const [skip, setSkip] = React.useState(true);
-      const queryResult = useQuery({ query, skip, variables });
+      const queryResult = useQuery({
+        query,
+        skip,
+        variables: { name: 'bulbasur' }
+      });
       cb(queryResult);
       return (
         <button data-testid="button" onClick={() => setSkip(false)}>
